@@ -13,20 +13,22 @@ This project leverages the **Ultralytics YOLOv8** architecture to perform real-t
 ## Project Structure
 ```text
 C:\Ai_Expert\L45-Homework\
-├── Assets/                 # Source videos and original assets
+├── Assets/                 # Input videos and original assets
 ├── code/                   # Modular Python source code
-│   ├── config.py           # Hyperparameters and file paths
-│   ├── detector.py         # YOLO model wrapper
-│   ├── metadata_handler.py # JSON metadata export logic
-│   ├── video_writer.py     # OpenCV video writer management
-│   ├── processor.py        # Pipeline orchestration logic
-│   ├── main.py             # Application entry point
-│   ├── draw_from_json.py   # Utility to redraw boxes from metadata
-│   └── yolo_detection.py   # Legacy/standalone detection script
-├── metadata/               # Detailed JSON detection results
-├── Output/                 # Processed videos and analysis frames
-├── requirements.txt        # Python dependencies
-└── README.md               # Project guide and analysis
+│   ├── config.py           # Configuration and hyperparameters
+│   ├── detector.py         # YOLOv8 inference wrapper
+│   ├── draw_from_json.py   # Visualization utility
+│   ├── main.py             # Main execution entry point
+│   ├── metadata_handler.py # JSON metadata processing
+│   ├── processor.py        # Video pipeline orchestration
+│   ├── video_writer.py     # Output stream management
+│   └── yolo_detection.py   # Legacy standalone module
+├── metadata/               # Exported JSON detection records
+├── Output/                 # Visual results and analysis frames
+├── requirements.txt        # Project dependencies
+├── yolov8n.pt              # Pre-trained model weights
+├── output_video.mp4        # Sample processed output
+└── README.md               # Documentation and analysis
 ```
 
 ## Data Flow / Architecture
@@ -34,13 +36,13 @@ The data follows a linear pipeline:
 
 ```mermaid
 graph LR
-    Video[input_video.mp4] --> OpenCV[OpenCV Frame Reader]
+    Video[Source Video] --> OpenCV[OpenCV Frame Reader]
     OpenCV --> PreProc[Image Pre-processing]
     PreProc --> YOLO[YOLO Inference Engine]
     YOLO --> PostProc[Visual Annotator]
     YOLO --> Meta[Metadata Extractor]
-    PostProc --> OutVid[output_video_detected.mp4]
-    Meta --> OutJSON[detection_results.json]
+    PostProc --> OutVid[Output Video]
+    Meta --> OutJSON[Metadata JSON]
 ```
 
 ## Results
