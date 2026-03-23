@@ -9,7 +9,7 @@ class Config:
     # Input/Output configuration
     INPUT_VIDEO = "input_video.mp4"
     OUTPUT_VIDEO = "output_video_detected.mp4"
-    RESULTS_JSON = "detection_results.json"
+    RESULTS_JSON = "../metadata/detection_results.json"
     
     # Processing parameters
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"

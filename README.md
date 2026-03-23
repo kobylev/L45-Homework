@@ -23,6 +23,7 @@ C:\Ai_Expert\L45-Homework\
 │   ├── main.py             # Application entry point
 │   ├── draw_from_json.py   # Utility to redraw boxes from metadata
 │   └── yolo_detection.py   # Legacy/standalone detection script
+├── metadata/               # Detailed JSON detection results
 ├── Output/                 # Processed videos and analysis frames
 ├── requirements.txt        # Python dependencies
 └── README.md               # Project guide and analysis
