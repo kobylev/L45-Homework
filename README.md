@@ -11,18 +11,22 @@ This project leverages the **Ultralytics YOLOv8** architecture to perform real-t
 4.  **Data Export**: Log detections with timestamps and indices into a JSON file for downstream analysis.
 
 ## Project Structure
+```text
 C:\Ai_Expert\L45-Homework\
-├── Assets/                 # Source videos and result visualizations
+├── Assets/                 # Source videos and original assets
 ├── code/                   # Modular Python source code
 │   ├── config.py           # Hyperparameters and file paths
-...
-
 │   ├── detector.py         # YOLO model wrapper
-│   ├── processor.py        # Video handling and metadata logic
-│   └── main.py             # Pipeline orchestration
-├── docs/                   # Additional documentation
+│   ├── metadata_handler.py # JSON metadata export logic
+│   ├── video_writer.py     # OpenCV video writer management
+│   ├── processor.py        # Pipeline orchestration logic
+│   ├── main.py             # Application entry point
+│   ├── draw_from_json.py   # Utility to redraw boxes from metadata
+│   └── yolo_detection.py   # Legacy/standalone detection script
+├── docs/                   # Technical documentation
+├── Output/                 # Processed videos and analysis frames
 ├── requirements.txt        # Python dependencies
-└── README.md               # Project guide
+└── README.md               # Project guide and analysis
 ```
 
 ## Data Flow / Architecture
