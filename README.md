@@ -59,7 +59,7 @@ graph LR
 | **Natural Bird** <br> ![Bird](Output/Bird.png) | A bird in flight. | Provides a baseline for the B1B misclassification. Note the similar "cross" silhouette and wing positioning that triggers the "bird" class. |
 | **Urban Infrastructure** <br> ![Traffic Light](Output/Traffic_Light.png) | Detection of a traffic light. | Demonstrates the model's ability to isolate small, vertical objects against complex backgrounds. These are often difficult due to thin profiles. |
 | **High-Density Traffic** <br> ![NYC Traffic](Output/Ny%20City%20Traffic.png) | Busy New York City street. | Showcases the model handling severe occlusion and high object density. It successfully separates overlapping vehicles in a crowded urban grid. |
-| **Missile Interception** <br> ![Arrow](Output/Arrow.png) | Arrow missile interceptor. | **Misclassification Example:** The model identifies the missile's glowing plume as a **traffic light**. See the Case Study below for a detailed technical root-cause analysis. |
+| **Missile Interception** <br> ![Arrow](Output/Arrow.png) | Arrow missile interceptor. | **Misclassification Example:** The model identifies the missile's glowing plume as a **sports ball**. See the Case Study below for a detailed technical root-cause analysis. |
 
 - `output_video_detected.mp4`: The visually annotated video.
 - `detection_results.json`: A detailed log of every object detected.
@@ -68,12 +68,13 @@ graph LR
 
 While YOLOv8 is highly accurate, real-world video processing often reveals edge cases where the model fails to correctly classify objects.
 
-### Case Study: Arrow Missile Misidentified as a Traffic Light
-In the frame `Arrow.png`, an **Arrow interceptor missile** is labeled as a **traffic light**. This is a rare but logical error based on low-level visual features:
+### Case Study: Arrow Missile Misidentified as a Sports Ball
+In the frame `Arrow.png`, an **Arrow interceptor missile** is labeled as a **sports ball**. This is a logical error based on low-level visual features:
 
-- **Vertical Aspect Ratio**: The missile and its exhaust plume create a long, vertical rectangle. This matches the structural priors for a traffic light pole or housing in the COCO dataset.
-- **Chromatic Intensity (Glowing Plume)**: The bright, concentrated light of the rocket motor (yellow/white/red) closely mimics the high-intensity glow of an active traffic signal. Since YOLO looks for local patches of color and light, the "red/orange" glow of the plume triggers the traffic light detector.
-- **Background Contrast**: Against a dark night sky or high-altitude atmosphere, the isolated, bright vertical object is statistically more likely to be an urban light source (in the model's training experience) than a supersonic kinetic interceptor, which is a class not present in standard pre-trained models.
+- **Spherical Geometry of the Plume**: At the moment of high-speed propulsion or interception, the intense glowing exhaust plume creates a highly concentrated, spherical "point source" of light. This circular silhouette is a primary feature map for objects like tennis balls, baseballs, or soccer balls.
+- **High-Contrast "Objectness"**: Against the dark, uniform background of the night sky, the isolated, bright, and circular plume triggers the model's "objectness" score. Since the class "missile" or "projectile" is absent from the standard COCO dataset, the model maps the feature set to the closest matching geometric class: a **sports ball**.
+- **Motion Dynamics**: The rapid, non-linear trajectory of a sports ball in flight (e.g., a fast-moving tennis ball) mirrors the sudden acceleration and directional shifts of a kinetic interceptor from the model's limited perspective.
+- **Chromatic Features**: The uniform, high-saturation color of the plume (yellow/orange/white) resembles the bright, high-visibility colors of sports equipment used in training data.
 
 ### Case Study: B1B Lancer Misidentified as a Bird
 In the frame `B1b_bird.png`, we see a **B1B Lancer bomber** being classified as a **bird**. This is a classic example of feature-based misclassification:
